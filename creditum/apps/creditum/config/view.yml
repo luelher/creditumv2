@@ -1,0 +1,22 @@
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:        Creditum
+    description:  Portal de consulta de información Crediticia
+    keywords:     creditum, creditos, informacion, creditcia
+    language:     es
+    robots:       index, follow
+
+  stylesheets:    [main.css, default.css]
+
+  javascripts:    []
+
+  has_layout:     on
+  layout:         layout
+
+  components:
+    menu:  [index, menu]
+    info:  [index, info]
+    principal:  [index, principal]
