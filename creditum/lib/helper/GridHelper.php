@@ -40,13 +40,14 @@ function grid_tag($obj,$objelim = array())
   $private = array();
   $public = array();
 
+  use_helper("sfExtjs2");
+
+  echo '<div id="GridPanel'.$name.'"></div>';
+  
   $sfExtjs2Plugin = new sfExtjs2Plugin(array('theme'=>'gray'), array('css' => '/sfExtjsThemePlugin/css/symfony-extjs.css'));
+
   $sfExtjs2Plugin->load();
   $sfExtjs2Plugin->begin();
-
-  use_helper('sfExtjs2');
-
-  echo '<div id="grid'.$name.'">';
 
 
   // **************************************
@@ -62,16 +63,16 @@ function grid_tag($obj,$objelim = array())
 
 
   // create the columnModel
-  $private['cm'] = $sfExtjs2Plugin->ColumnModel(convertColumnsTypes($tiposobj,$titulos,$campos));
+  $private['cm'] = $sfExtjs2Plugin->ColumnModel(convertColumnsTypes($sfExtjs2Plugin, $tiposobj,$titulos,$campos));
 
   // create the newrecord button
-  $private['create'] = $sfExtjs2Plugin->createRecord(convertColumnsNewRecord($tiposobj,$titulos,$campos));
+  $private['create'] = $sfExtjs2Plugin->createRecord(convertColumnsNewRecord($sfExtjs2Plugin, $tiposobj,$titulos,$campos));
 
   $opcionesgrid = array(
       'id'      => 'GridPanel'.$name,
       'title'   => $cabeza,
-      'width'   => 550,
-      'heigth'  => 400,
+      'width'   => 650,
+      'height'  => 300,
       'frame'   => true,
       'iconCls' => 'icon-grid',
       'cm'      => $sfExtjs2Plugin->asVar('cm'),
@@ -96,7 +97,7 @@ function grid_tag($obj,$objelim = array())
 
     ds.loadData(data);
 
-    gridPanel.render('grid-example');
+    gridPanel.render('GridPanel".$name."');
   ");
 
   $sfExtjs2Plugin->beginApplication(
@@ -108,24 +109,22 @@ function grid_tag($obj,$objelim = array())
     )
   );
   $sfExtjs2Plugin->endApplication();
-
   $sfExtjs2Plugin->initApplication('App');
   $sfExtjs2Plugin->end();
-  echo '</div>';
 
 }
 
-function convertColumnsTypes($tipoobj,$titulos,$campos)
+function convertColumnsTypes($sfExtjs2Plugin, $tipoobj,$titulos,$campos)
 {
 
-  $userStore = $sfExtjs2Plugin->SimpleStore(array(
+  /*$userStore = $sfExtjs2Plugin->SimpleStore(array(
       'fields' => array("'val'", "'name'"),
       'data' => $sfExtjs2Plugin->asVar("[
       ['val1', 'Valor 1' ],
     ['val2', 'Valor 2'],
     ['val3', 'Valor 3'],
     ]"),
-  ));
+  ));*/
 
 
   $columns = array();
@@ -173,7 +172,7 @@ function convertColumnsTypes($tipoobj,$titulos,$campos)
   return $columns;
 }
 
-function convertColumnsNewRecord($tipoobj,$titulos,$campos)
+function convertColumnsNewRecord($sfExtjs2Plugin, $tipoobj,$titulos,$campos)
 {
 
   $columns = array();
@@ -309,12 +308,13 @@ function convertData($data,$campos,$tiposobj)
 
   $dataoutput .= "]";
 
+/*
   $dd = "[
   [['the Netherlands'], ['Hola'], [12.5], ['DDD']],
   [['the Netherlands'], ['Mundo'], [12.5], ['FFF']],
   [['France'], ['A dormir'], [12.5], ['XXX']],
   ]";
-
+*/
   return $dataoutput;
 }
 

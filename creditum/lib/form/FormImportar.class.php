@@ -2,7 +2,7 @@
 
 class FormImportar extends sfForm {
 
-    protected $tipos = array('Generica de Creditum','La Rana');
+    protected $tipos = array('Generica de Creditum');
 
     public function configure(){
       $this->setWidgets(array(
@@ -15,6 +15,7 @@ class FormImportar extends sfForm {
 
       $this->setValidators(array(
         'archivo' => new sfValidatorFile(array('required'=>'true')),
+        'tipo' => new sfValidatorString(array('required'=>'true')),
       ));
 
 
