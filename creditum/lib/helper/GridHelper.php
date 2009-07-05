@@ -78,11 +78,13 @@ function grid_tag($obj,$objelim = array())
       'cm'      => $sfExtjs2Plugin->asVar('cm'),
       'ds'      => $sfExtjs2Plugin->asVar('ds'),
     );
+    
+  $columnsDefaults = "";
 
   if($filas_vacias>0) $opcionesgrid['tbar'] = $sfExtjs2Plugin->asVar("[{
                                                   text: 'Nuevo Registro',
                                                   handler : function(){
-                                                      var p = new create({});
+                                                      var p = new create({".$columnsDefaults."});
                                                       gridPanel.stopEditing();
                                                       ds.insert(0, p);
                                                       gridPanel.startEditing(0, 0);
