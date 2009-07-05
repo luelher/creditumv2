@@ -1,0 +1,12 @@
+
+.formulario li {
+  list-style-type: none;
+  margin: 5px;
+  padding: 5px;
+}
+
+.error_list {
+  list-style-type: none;
+  color: red;
+}
+
