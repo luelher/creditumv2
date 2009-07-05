@@ -20,6 +20,11 @@ class importarActions extends sfActions
 
     $this->formulario = new FormImportar();
 
+    $reg = CreditosPeer::doSelectOne(new Criteria());
+    //$reg = array(new Creditos(),new Creditos(), new Creditos());
+    
+    $this->obj = Herramientas::getConfigGrid(sfConfig::get('sf_app_module_dir').'/importar/config/grid_importar',$reg);
+
     if ($request->isMethod('post'))
       $this->formulario->bind($request->getParameter('importar'), $request->getFiles('importar'));
 
@@ -28,6 +33,11 @@ class importarActions extends sfActions
   public function executeImportar(sfWebRequest $request)
   {
     $this->formulario = new FormImportar();
+
+    $reg = CreditosPeer::doSelectOne(new Criteria());
+    //$reg = array(new Creditos(),new Creditos(), new Creditos());
+    
+    $this->obj = Herramientas::getConfigGrid(sfConfig::get('sf_app_module_dir').'/importar/'.sfConfig::get('sf_app_module_config_dir_name').'/grid_importar',$reg);
 
     if ($request->isMethod('post'))
     {
@@ -48,7 +58,7 @@ class importarActions extends sfActions
         }else $this->data = array();
 
         if(count($this->data)>0){
-          $importar->getData()
+          $importar->getData();
         }
 
       }else {

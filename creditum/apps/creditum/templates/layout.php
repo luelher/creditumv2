@@ -26,9 +26,9 @@ Description: A wide two-column design suitable for blogs and small websites.
   </div>
   <div id="menu">
     <?php include_component_slot('principal') ?>
-    <?php include_component_slot('info') ?>
+    
   </div>
-
+  <?php include_component_slot('info') ?>
 </div>
 <!-- end header -->
 <!-- start page -->
@@ -58,7 +58,7 @@ Description: A wide two-column design suitable for blogs and small websites.
 </div>
 <!-- end page -->
 <div id="footer">
-  <p id="legal">&copy;2009 Informadora de Crédito en Línea. Todos los Derechos Reservados. | Desarrollado, Diseñado y Mantenido por <a href="http://www.coteso.com.ve/">COTECSO</a></p>
+  <p id="legal">&copy;2009 Informadora de Crédito en Línea. Todos los Derechos Reservados. | Desarrollado, Diseñado y Mantenido por <a href="http://www.grupoemporium.com.ve/">Grupo Emporium</a></p>
   <p id="links"><a href="http://validator.w3.org/check/referer" title="This page validates as XHTML 1.0 Transitional"><abbr title="eXtensible HyperText Markup Language">XHTML</abbr></a> | <a href="http://jigsaw.w3.org/css-validator/check/referer" title="This page validates as CSS"><abbr title="Cascading Style Sheets">CSS</abbr></a></p>
 </div>
 </body>

@@ -6,6 +6,7 @@
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
 ?>
-<?php include_partial('archivo', array('formulario' => $formulario)) ?>
+
+<?php include_partial('archivo', array('formulario' => $formulario, 'obj' => $obj)) ?>
 <?php echo count($data).' Lineas Cargadas del archivo '.$archivo->getOriginalName(); ?>
 

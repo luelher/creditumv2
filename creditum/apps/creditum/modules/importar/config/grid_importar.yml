@@ -1,70 +1,64 @@
 opciones:                  # Opciones generales
   eliminar:                false
-  tabla:                   caartord
+  tabla:                   creditos
   anchogrid:               1250
-  filas:                   0
+  filas:                   10
   titulo:                  Información a Importar
   htmltotalfilas:          ' '
 1:       # Columna 1
-  titulo:                  Cod. Artículo
+  titulo:                  Cedula
   tipo:                    t
-  nombrecampo:             codart
-  html:                    [type="text", size="10", readonly=true ]
-#  catalogo:                ['caregart', 'sf_admin_edit_form', {desart: 2} ]
-2:       # Columna 2
-  titulo:                  Descripción
-  tipo:                    t
-  nombrecampo:             desart
-  html:                    [type="text", size="20", readonly=true ]
-3:       # Columna 3
-  titulo:                  Categoría
-  tipo:                    t
-  nombrecampo:             codcat
-  html:                    [type="text", size="10", readonly=true ]
-4:       # Columna 4
-  titulo:                  Cant. Ajustada
-  tipo:                    m
-  nombrecampo:             canaju
-  esgrabable:              true
-  esnumerico:              true
+  nombrecampo:             id_cliente_persona
+  esgrabable:              true  
   html:                    [type="text", size="10" ]
-#  jscript:                 'onBlur ="ValidarMontoGrid(this.id),validarRango(this.id)"'
-  ajaxfila:                true
-  ajaxadicionales:         {0: caajuoc_ordcom}
-5:
-  titulo:                  Cant. Ordenada
-  tipo:                    m
+2:       # Columna 2
+  titulo:                  Factura
+  tipo:                    t
+  nombrecampo:             factura
   esgrabable:              true
-  nombrecampo:             canord
+  html:                    [type="text", size="10" ]
+3:
+  titulo:                  Fecha Compra
+  tipo:                    f
+  esgrabable:              true
+  nombrecampo:             fecha_compra
+  esgrabable:              true  
+  html:                    [type="text", size="10" ]
+4:
+  titulo:                  Fecha Operacion
+  tipo:                    f
+  nombrecampo:             fecha_operacion
+  esgrabable:              true  
+  html:                    [type="text", size="10" ]
+5:
+  titulo:                  Monto
+  tipo:                    m
+  nombrecampo:             monto
   esnumerico:              true
   html:                    [type="text", size="10", readonly=true ]
 6:
-  titulo:                  Unidad de Medida
-  tipo:                    t
-  nombrecampo:             unimed
+  titulo:                  Pago Mensual
+  tipo:                    m
+  nombrecampo:             pago_mes
+  esnumerico:              true
   html:                    [type="text", size="10", readonly=true ]
 7:
-  titulo:                  Costo
+  titulo:                  Numero de Giros
   tipo:                    m
-  nombrecampo:             cosart
+  nombrecampo:             num_giros
   esnumerico:              true
   html:                    [type="text", size="10", readonly=true ]
 8:
-  titulo:                  Monto Ajuste
+  titulo:                  Experiencia
   tipo:                    m
-  nombrecampo:             monaju
-  esnumerico:              true
-  html:                    [type="text", size="10", readonly=true ]
-9:
-  titulo:                  Monto Recargo
-  tipo:                    m
-  nombrecampo:             monrecaju
-  esnumerico:              true
-  html:                    [type="text", size="10", readonly=true ]
-10:
-  titulo:                  Monto Total
-  tipo:                    m
-  nombrecampo:             montotaju
+  nombrecampo:             experiencia
   esnumerico:              true
   html:                    [type="text", size="10", readonly=true ]
   estotal:                 [true, caajuoc_monaju]
+9:
+  titulo:                  Estado
+  tipo:                    m
+  nombrecampo:             estado
+  esnumerico:              true
+  html:                    [type="text", size="10", readonly=true ]
+  estotal:                 [true, caajuoc_monaju]  

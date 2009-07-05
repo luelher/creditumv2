@@ -6,6 +6,7 @@
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
 ?>
+  <?php use_helper("Grid"); ?>
   <div class="formulario">
     <form action="<?php echo url_for('importar/importar') ?>" method="POST" enctype="multipart/form-data" >
       <ul class="">
@@ -15,4 +16,8 @@
         </li>
       </ul>
     </form>
+  </div>
+
+  <div id="grid">
+      <?php echo grid_tag($obj); ?>
   </div>
