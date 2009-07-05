@@ -1,0 +1,145 @@
+propel:
+  _attributes:
+    package: lib.model
+    defaultIdMethod: native
+  casas_comerciales:
+    _attributes: { phpName: CasasComerciales }
+    ID_CASA_COMERCIAL: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    NOMBRE: { type: VARCHAR, size: '60', required: true, defaultValue: '' }
+    RIF: { type: VARCHAR, size: '15', required: false }
+    NIT: { type: VARCHAR, size: '15', required: false }
+    UBICACION: { type: VARCHAR, size: '100', required: false }
+    _indexes: { INDEX_CC: [ID_CASA_COMERCIAL], I_NOMBRE: [NOMBRE] }
+  clientes:
+    _attributes: { phpName: Clientes }
+    ID_CLIENTE: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    ID_CASA_COMERCIAL: { type: INTEGER, size: '11', required: false, defaultValue: '0' }
+    NOMBRE: { type: VARCHAR, size: '30', required: true, defaultValue: '' }
+    RIF: { type: VARCHAR, size: '15', required: false }
+    NIT: { type: VARCHAR, size: '15', required: false }
+    DIRECCION: { type: VARCHAR, size: '50', required: false }
+    TELEFONO: { type: VARCHAR, size: '20', required: false }
+    FAX: { type: VARCHAR, size: '20', required: false }
+    CELULAR: { type: VARCHAR, size: '20', required: false }
+    EMAIL: { type: VARCHAR, size: '50', required: false }
+    _indexes: { I_CNOMBRE: [NOMBRE] }
+    _uniques: { INDEX_ID: [ID_CLIENTE] }
+  clientes_conf:
+    _attributes: { phpName: ClientesConf }
+    ID_CLIENTE: { type: INTEGER, size: '11', primaryKey: true, required: true, defaultValue: '0' }
+    DESCUENTO: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    CONSULTAS: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    APORTES: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    FECHA_INI: { type: DATE, required: true, defaultValue: '0000-00-00' }
+    STATUS: { type: INTEGER, size: '1', required: true, defaultValue: '1' }
+    _indexes: { Indice_Clientes_conf: [ID_CLIENTE], Fecha_Ini: [FECHA_INI] }
+  clientes_personas:
+    _attributes: { phpName: ClientesPersonas }
+    ID_PERSONA: { type: VARCHAR, size: '15', required: true, defaultValue: '' }
+    ID_CLIENTE_PERSONA: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    ID_CLIENTE: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    _indexes: { INDEX_CLIENTE_PERSONA: [ID_CLIENTE_PERSONA], INDEX_CLIENTE: [ID_CLIENTE], INDEX_PERSONA: [ID_PERSONA] }
+  consultas:
+    _attributes: { phpName: Consultas }
+    CEDULA_USUARIO: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    ID_CLIENTE: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    ID_PERSONA: { type: VARCHAR, size: '15', required: true, defaultValue: '' }
+    FECHA_HORA: { type: TIMESTAMP, required: true, defaultValue: '0000-00-00 00:00:00' }
+    _indexes: { I_USR: [CEDULA_USUARIO], I_CLIENTE: [ID_CLIENTE], I_PERSONA: [ID_PERSONA] }
+  consultas_fallidas:
+    _attributes: { phpName: ConsultasFallidas }
+    CEDULA_USUARIO: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    ID_CLIENTE: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    ID_PERSONA: { type: VARCHAR, size: '15', required: true, defaultValue: '' }
+    FECHA_HORA: { type: TIMESTAMP, required: true, defaultValue: '0000-00-00 00:00:00' }
+    _indexes: { INDEX_USR: [CEDULA_USUARIO], INDEX_CLIENTE: [ID_CLIENTE], INDEX_PERSONA: [ID_PERSONA] }
+  creditos:
+    _attributes: { phpName: Creditos }
+    ID: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    ID_CLIENTE_PERSONA: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    FACTURA: { type: VARCHAR, size: '20', required: true, defaultValue: '' }
+    FECHA_COMPRA: { type: DATE, required: true, defaultValue: '0000-00-00' }
+    FECHA_OPERACION: { type: DATE, required: true, defaultValue: '0000-00-00' }
+    MONTO: { type: DOUBLE, required: true, defaultValue: '0' }
+    PAGO_MES: { type: DOUBLE, required: true, defaultValue: '0' }
+    NUM_GIROS: { type: TINYINT, size: '4', required: true, defaultValue: '0' }
+    EXPERIENCIA: { type: TINYINT, size: '4', required: true, defaultValue: '0' }
+    ESTADO: { type: TINYINT, size: '4', required: true, defaultValue: '0' }
+    _indexes: { INDEX_ID_CP: [ID_CLIENTE_PERSONA], INDEX_FECHA_O: [FECHA_OPERACION], INDEX_FECHA_C: [FECHA_COMPRA], INDEX_FACTURA: [FACTURA] }
+    _uniques: { INDEX_ID: [ID] }
+  detalle_facturas:
+    _attributes: { phpName: DetalleFacturas }
+    ID_FACTURA: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    CEDULA_USUARIO: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    ID_PERSONA: { type: VARCHAR, size: '15', required: true, defaultValue: '' }
+    FECHA_HORA: { type: TIMESTAMP, required: true, defaultValue: '0000-00-00 00:00:00' }
+    STATUS: { type: INTEGER, size: '1', required: true, defaultValue: '0' }
+  direcciones:
+    _attributes: { phpName: Direcciones }
+    ID_PERSONA: { type: VARCHAR, size: '15', primaryKey: true, required: true, defaultValue: '' }
+    DIRECCION: { type: VARCHAR, size: '50', required: true, defaultValue: '' }
+  empresa_conf:
+    _attributes: { phpName: EmpresaConf }
+    ID_CLIENTE: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    WEB: { type: VARCHAR, size: '50', required: true, defaultValue: '' }
+    PRECIO_OK1: { type: FLOAT, required: true, defaultValue: '0' }
+    PRECIO_OK2: { type: FLOAT, required: true, defaultValue: '0' }
+    PRECIO_OK3: { type: FLOAT, required: true, defaultValue: '0' }
+    PRECIO_OK4: { type: FLOAT, required: true, defaultValue: '0' }
+    PRECIO_FALLIDA: { type: FLOAT, required: true, defaultValue: '0' }
+  facturas:
+    _attributes: { phpName: Facturas }
+    ID_FACTURA: { type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    ID_CLIENTE: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    FECHA_DESDE: { type: DATE, required: true, defaultValue: '0000-00-00' }
+    FECHA_HASTA: { type: DATE, required: true, defaultValue: '0000-00-00' }
+    PRECIO_OK: { type: DOUBLE, required: true, defaultValue: '0' }
+    PRECIO_FALLIDA: { type: DOUBLE, required: true, defaultValue: '0' }
+    VALIDAS: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    TOTALV: { type: DOUBLE, required: true, defaultValue: '0' }
+    FALLIDAS: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    TOTALF: { type: DOUBLE, required: true, defaultValue: '0' }
+    DESCUENTO: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    TOTALD: { type: DOUBLE, required: true, defaultValue: '0' }
+    TOTAL: { type: DOUBLE, required: true, defaultValue: '0' }
+    _indexes: { Indice_Facturas: [ID_FACTURA], Indice_cli: [ID_CLIENTE] }
+  nivel:
+    _attributes: { phpName: Nivel }
+    ID_NIVEL: { type: TINYINT, size: '1', primaryKey: true, autoIncrement: true, required: true }
+    DESCRIPCION: { type: VARCHAR, size: '50', required: true, defaultValue: '' }
+    _uniques: { Index_Nivel: [ID_NIVEL] }
+  personas_juridicas:
+    _attributes: { phpName: PersonasJuridicas }
+    RIF: { type: VARCHAR, size: '15', primaryKey: true, required: true, defaultValue: '' }
+    NIT: { type: VARCHAR, size: '10', required: true, defaultValue: '' }
+    NOMBRE: { type: VARCHAR, size: '30', required: true, defaultValue: '' }
+    TELEFONO: { type: VARCHAR, size: '15', required: false }
+    DIRECCION: { type: VARCHAR, size: '100', required: false }
+    FAX: { type: VARCHAR, size: '15', required: false }
+    EMAIL: { type: VARCHAR, size: '30', required: false }
+    _indexes: { Indice_Personas_Juridicas_RIF: [RIF], Indice_Personas_Juridicas_NIT: [NIT] }
+  personas_naturales:
+    _attributes: { phpName: PersonasNaturales }
+    CEDULA: { type: VARCHAR, size: '15', primaryKey: true, required: true, defaultValue: '' }
+    NOMBRE: { type: VARCHAR, size: '30', required: true, defaultValue: '' }
+    APELLIDO: { type: VARCHAR, size: '30', required: true, defaultValue: '' }
+    TELEFONO: { type: VARCHAR, size: '15', required: false }
+    CELULAR: { type: VARCHAR, size: '15', required: false }
+    PROFESION: { type: VARCHAR, size: '16', required: false }
+    NACIONALIDAD: { type: CHAR, required: false, defaultValue: VENEZOLANO }
+    FECHA_NAC: { type: DATE, required: false }
+    SEXO: { type: CHAR, required: false }
+    _uniques: { INDEX_CI: [CEDULA] }
+  usuarios:
+    _attributes: { phpName: Usuarios }
+    CEDULA: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    ID_CLIENTE: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    PWD: { type: VARCHAR, size: '50', required: true, defaultValue: '' }
+    NOMBRE: { type: VARCHAR, size: '20', required: true, defaultValue: '' }
+    APELLIDO: { type: VARCHAR, size: '20', required: true, defaultValue: '' }
+    TELEFONO: { type: VARCHAR, size: '15', required: false }
+    CELULAR: { type: VARCHAR, size: '15', required: false }
+    NACIONALIDAD: { type: CHAR, required: false, defaultValue: VENEZOLANO }
+    ID_NIVEL: { type: TINYINT, size: '1', required: true, defaultValue: '0' }
+    FECHA: { type: DATE, required: false }
+    _indexes: { INDEX_PWD: [PWD], INDEX_CI: [CEDULA] }
