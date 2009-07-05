@@ -420,6 +420,7 @@ class sfExtjs2Plugin {
         $response->addStylesheet($cssAddon, 'first');
       }
     }
+
   }
 
   /**
