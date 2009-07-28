@@ -19,25 +19,26 @@ class importarActions extends sfActions
   {
 
     $this->formulario = new FormImportar();
+    $reg = array();
+    $this->obj = Herramientas::getConfigGrid('grid_importar',$reg);
 
-    $reg = CreditosPeer::doSelectOne(new Criteria());
-    //$reg = array(new Creditos(),new Creditos(), new Creditos());
-    
-    $this->obj = Herramientas::getConfigGrid(sfConfig::get('sf_app_module_dir').'/importar/config/grid_importar',$reg);
 
     if ($request->isMethod('post'))
       $this->formulario->bind($request->getParameter('importar'), $request->getFiles('importar'));
 
+  }
+  
+  public function executePrueba()
+  {    
   }
 
   public function executeImportar(sfWebRequest $request)
   {
     $this->formulario = new FormImportar();
 
-    $reg = CreditosPeer::doSelectOne(new Criteria());
-    //$reg = array(new Creditos(),new Creditos(), new Creditos());
-    
-    $this->obj = Herramientas::getConfigGrid(sfConfig::get('sf_app_module_dir').'/importar/'.sfConfig::get('sf_app_module_config_dir_name').'/grid_importar',$reg);
+    $reg = array(new Creditos(),new Creditos(), new Creditos());
+    $this->obj = Herramientas::getConfigGrid('grid_importar',$reg);
+
 
     if ($request->isMethod('post'))
     {
@@ -64,6 +65,7 @@ class importarActions extends sfActions
       }else {
         $this->forward('importar', 'index');
       }
+    }else{
     }
 
 

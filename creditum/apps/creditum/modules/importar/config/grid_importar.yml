@@ -11,6 +11,7 @@ opciones:                  # Opciones generales
   nombrecampo:             id_cliente_persona
   esgrabable:              true  
   html:                    [type="text", size="10" ]
+  catalogo:                [caregart, sf_admin_edit_form, {desart: 2} ]
 2:       # Columna 2
   titulo:                  Factura
   tipo:                    t
@@ -44,13 +45,13 @@ opciones:                  # Opciones generales
   html:                    [type="text", size="10", readonly=true ]
 7:
   titulo:                  Numero de Giros
-  tipo:                    m
+  tipo:                    d
   nombrecampo:             num_giros
   esnumerico:              true
   html:                    [type="text", size="10", readonly=true ]
 8:
   titulo:                  Experiencia
-  tipo:                    m
+  tipo:                    d
   nombrecampo:             experiencia
   esnumerico:              true
   html:                    [type="text", size="10", readonly=true ]
