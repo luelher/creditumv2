@@ -557,7 +557,7 @@ public static function CargarDatosGrid(&$form,$obj,$arreglo = false)
 
     }else{
 
-    $confgrid = sfYaml::load($conf.'.yml');
+    $confgrid = sfYaml::load(sfConfig::get('sf_app_module_dir').'/'.sfContext::getInstance()->getModuleName().'/config/'.$conf.'.yml');
 
     $opciones =  new OpcionesGrid();
     $colums = array();
