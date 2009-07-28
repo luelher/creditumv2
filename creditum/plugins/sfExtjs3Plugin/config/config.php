@@ -75,6 +75,11 @@ sfConfig::set('sf_extjs3_classes',
     'HttpProxy'     => 'Ext.data.HttpProxy',
     'Template'      => 'Ext.Template',
     'XTemplate'     => 'Ext.XTemplate',
+    'RecordCreate'  => 'Ext.data.Record.create',
+    'ArrayReader'   => 'Ext.data.ArrayReader',
+    'ArrayStore'   => 'Ext.data.ArrayStore',    
+    'MemoryProxy'   => 'Ext.data.MemoryProxy',
+    
     // widgets
     'BoxComponent'            => 'Ext.BoxComponent',
     'Button'                  => 'Ext.Button',
@@ -94,9 +99,11 @@ sfConfig::set('sf_extjs3_classes',
     'Hidden'                  => 'Ext.form.Hidden',
     'DateField'               => 'Ext.form.DateField',
     'TextField'               => 'Ext.form.TextField',
+    'NumberField'             => 'Ext.form.NumberField',
     'TimeField'               => 'Ext.form.TimeField',
     'HtmlEditor'              => 'Ext.form.HtmlEditor',
     'ComboBox'                => 'Ext.form.ComboBox',
+    'TriggerField'            => 'Ext.form.TriggerField',
     'Menu'                    => 'Ext.menu.Menu',
     'Item'	  		            => 'Ext.menu.Item',
     'TextItem'                => 'Ext.menu.TextItem',
@@ -117,6 +124,7 @@ sfConfig::set('sf_extjs3_classes',
     'AsyncTreeNode'           => 'Ext.tree.AsyncTreeNode',
     // base
     'Observable'              => 'Ext.util.Observable',
+    'dateRenderer'              => 'Ext.util.Format.dateRenderer',
   )
 );
 #
@@ -178,6 +186,34 @@ sfConfig::set('Ext.Template',
 sfConfig::set('Ext.XTemplate',
   array(
     'class'       => 'Ext.XTemplate',
+    'attributes'  => array()
+  )
+);
+
+sfConfig::set('Ext.data.Record.create',
+  array(
+    'class'       => 'Ext.data.Record.create',
+    'attributes'  => array()
+  )
+);
+
+sfConfig::set('Ext.data.ArrayReader',
+  array(
+    'class'       => 'Ext.data.ArrayReader',
+    'attributes'  => array()
+  )
+);
+
+sfConfig::set('Ext.data.MemoryProxy',
+  array(
+    'class'       => 'Ext.data.MemoryProxy',
+    'attributes'  => array()
+  )
+);
+
+sfConfig::set('Ext.data.ArrayStore',
+  array(
+    'class'       => 'Ext.data.ArrayStore',
     'attributes'  => array()
   )
 );
@@ -325,6 +361,13 @@ sfConfig::set('Ext.form.TextField',
   )
 );
 
+sfConfig::set('Ext.form.NumberField',
+  array(
+    'class'       => 'Ext.form.NumberField',
+    'attributes'  => array()
+  )
+);
+
 sfConfig::set('Ext.form.TimeField',
   array(
     'class'       => 'Ext.form.TimeField',
@@ -342,6 +385,13 @@ sfConfig::set('Ext.form.HtmlEditor',
 sfConfig::set('Ext.form.ComboBox',
   array(
     'class'       => 'Ext.form.ComboBox',
+    'attributes'  => array()
+  )
+);
+
+sfConfig::set('Ext.form.TriggerField',
+  array(
+    'class'       => 'Ext.form.TriggerField',
     'attributes'  => array()
   )
 );
