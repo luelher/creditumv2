@@ -660,6 +660,70 @@ public static function CargarDatosGrid(&$form,$obj,$arreglo = false)
 
   }
 
+  public static function getGridConfig($conf,$data)
+  {
+
+    $confgrid = sfYaml::load(sfConfig::get('sf_app_module_dir').'/'.sfContext::getInstance()->getModuleName().'/config/'.$conf.'.yml');
+
+    $opciones =  new GridOptions();
+    $colums = array();
+
+    if(isset($confgrid)){
+
+      foreach($confgrid as $confkey => $confval){
+
+        switch($confkey){
+          case 'options':
+
+            foreach($confgrid[$confkey] as $key => $val){
+
+              switch($key){
+                case 'anchogrid':
+                  $metodo = 'setAnchogrid';
+                  $opciones->$metodo($val);
+                  break;
+                default:
+                  $metodo = 'set'.ucfirst(strtolower($key));
+                  $opciones->$metodo($val);
+              }
+            }
+
+            break;
+                default:
+                  $indice = ((int)$confkey)-1;
+                  $colums[$indice] = new GridColumn('');
+                  foreach($confgrid[$confkey] as $key => $val){
+                    switch($key){
+                      case 'catalog':
+                        $metodo = 'set'.ucfirst(strtolower($key));
+                        if(count($val)==4) $val3 = $val[3]; else $val3='';
+                        if(count($val)==5) $val4 = $val[4]; else $val4='';
+                        $colums[$indice]->$metodo($val[0],$val[1],$val[2],$val3,$val4);
+                        break;
+                      case 'ajax':
+                        $metodo = 'set'.ucfirst(strtolower($key));
+                        $colums[$indice]->$metodo($val[0],$val[1],$val[2]);
+                        break;
+                      case 'clone':
+                        //$index = ((int)$key)-1;
+                        $colums[$indice] = clone $colums[$val];
+                        break;
+                      default:
+                        $metodo = 'set'.ucfirst(strtolower($key));
+                        $colums[$indice]->$metodo($val);
+                    }
+                  }
+        }
+      }
+    }
+    foreach($colums as $c){
+      $opciones->addColumn($c);
+    }
+    $opciones->setData($data);
+    return $opciones;
+  }
+
+
   public static function getxLike($campos, $tabla, $result, $data)
   {
        eval ('$field = '.ucfirst(strtolower($tabla)).'Peer::'.strtoupper($campos).';');

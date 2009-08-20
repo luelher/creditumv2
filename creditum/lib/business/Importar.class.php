@@ -9,18 +9,19 @@ class Importar {
   protected $archivo='';
   private $data=array();
   private $metadata=array();
+  private $experiencias=array();
 
   function Importar($archivo='') {
     $this->archivo = $archivo;
   }
 
-  function getArchivo()
+  public function getArchivo()
   {return $this->archivo;}
 
-  function setArchivo($val)
+  public function setArchivo($val)
   {$this->archivo = $val;}
 
-  function Cargar($archivo='')
+  public function Cargar($archivo='')
   {
     if($archivo!='') $this->setArchivo($archivo);
 
@@ -28,34 +29,71 @@ class Importar {
 
   }
 
-  function Convertir($tipo=Importar::CREDITUM)
+  public function Convertir($tipo=Importar::CREDITUM)
   {
-    if(count($this->data)){
+    if(count($this->metadata)>0){
       switch($tipo){
         case Importar::CREDITUM:
-          $this->ConvertirCreditum();
+          return $this->ConvertirCreditum();
         case Importar::LARANA:
-          $this->ConvertirLaRana();
+          return $this->ConvertirLaRana();
       }
-      $this->save();
     }else return true;
+  }
+  
+  public function Procesar()
+  {
+    if(count($this->experiencias)>0){
+      foreach($this->experiencias as $exp){
+        
+      }
+    }
+    
+    return 0;
   }
 
   private function loadDatosArchivos()
   {
-    $this->data = file($this->archivo);
-    if(count($this->data)>0) return true;
+    $this->metadata = file($this->archivo);
+    if(count($this->metadata)>0) return true;
     else return false;
   }
 
-  public function getData()
+  public function getExperiencias()
   {
-    return $this->data;
+    return $this->experiencias;
   }
 
   private function save()
   {
+    // Guardar en la base de datos
     return true;
+  }
+  
+  private function ConvertirCreditum()
+  {
+    //print_r($this->metadata);
+    if(count($this->metadata)>0){
+      foreach($this->metadata as $meta){
+        $trama = $meta;
+        $tokents = split("\t", $trama);
+        $exp = new Experiencia();
+        $exp->setMetadata($meta);
+        $exp->Hidratar($tokents);
+        $this->experiencias[] = $exp;
+      }
+    }
+    return count($this->$experiencias);
+  }
+  
+  private function ConvertirLaRana()
+  {
+    return 0;
+  }
+  
+  public function Registros()
+  {
+    return count($this->metadata);
   }
 
 }
