@@ -1,65 +1,58 @@
-opciones:                  # Opciones generales
-  eliminar:                false
-  tabla:                   creditos
-  anchogrid:               1250
-  filas:                   10
-  titulo:                  Información a Importar
-  htmltotalfilas:          ' '
+options:                   # Opciones generales
+  delete:                  false
+  classname:               creditos
+  width:                   1250
+  rows:                    10
+  title:                   Información a Importar
 1:       # Columna 1
-  titulo:                  Cedula
-  tipo:                    t
-  nombrecampo:             id_cliente_persona
-  esgrabable:              true  
-  html:                    [type="text", size="10" ]
-  catalogo:                [caregart, sf_admin_edit_form, {desart: 2} ]
+  title:                   Cedula
+  type:                    t
+  field:                   id_cliente_persona
+  save:                    true  
+  catalog:                 [caregart, sf_admin_edit_form, {desart: 2}, afterEdit ]
 2:       # Columna 2
-  titulo:                  Factura
-  tipo:                    t
-  nombrecampo:             factura
-  esgrabable:              true
-  html:                    [type="text", size="10" ]
+  title:                   Factura
+  type:                    t
+  field:                   factura
+  save:                    true
 3:
-  titulo:                  Fecha Compra
-  tipo:                    f
-  esgrabable:              true
-  nombrecampo:             fecha_compra
-  esgrabable:              true  
-  html:                    [type="text", size="10" ]
+  title:                   Fecha Compra
+  type:                    f
+  save:                    true
+  field:                   fecha_compra
+  save:                    true  
 4:
-  titulo:                  Fecha Operacion
-  tipo:                    f
-  nombrecampo:             fecha_operacion
-  esgrabable:              true  
-  html:                    [type="text", size="10" ]
+  title:                   Fecha Operacion
+  type:                    f
+  field:                   fecha_operacion
+  save:                    true  
 5:
-  titulo:                  Monto
-  tipo:                    m
-  nombrecampo:             monto
-  esnumerico:              true
-  html:                    [type="text", size="10", readonly=true ]
+  title:                   Monto
+  type:                    m
+  field:                   monto
 6:
-  titulo:                  Pago Mensual
-  tipo:                    m
-  nombrecampo:             pago_mes
-  esnumerico:              true
-  html:                    [type="text", size="10", readonly=true ]
+  title:                   Pago Mensual
+  type:                    m
+  field:                   pago_mes
 7:
-  titulo:                  Numero de Giros
-  tipo:                    d
-  nombrecampo:             num_giros
-  esnumerico:              true
-  html:                    [type="text", size="10", readonly=true ]
+  title:                   Numero de Giros
+  type:                    d
+  field:                   num_giros
 8:
-  titulo:                  Experiencia
-  tipo:                    d
-  nombrecampo:             experiencia
-  esnumerico:              true
-  html:                    [type="text", size="10", readonly=true ]
-  estotal:                 [true, caajuoc_monaju]
+  title:                   Experiencia
+  type:                    d
+  field:                   experiencia
+  issum:                   [true, caajuoc_monaju]
 9:
-  titulo:                  Estado
-  tipo:                    m
-  nombrecampo:             estado
-  esnumerico:              true
-  html:                    [type="text", size="10", readonly=true ]
-  estotal:                 [true, caajuoc_monaju]  
+  title:                   Estado
+  type:                    m
+  field:                   estado
+  issum:                   [true, caajuoc_monaju]
+10:
+  title:                   Prueba Combo
+  type:                    c
+  field:                   factura
+  comboelements:           {12: uno, 13: dos, 14: tres, 15:cuatro }
+#  comboelements:           [uno, dos, tres, cuatro ]
+  
+  

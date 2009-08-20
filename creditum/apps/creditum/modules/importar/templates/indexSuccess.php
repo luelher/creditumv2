@@ -6,6 +6,6 @@
   <p><?php echo __('Este módulo le permitirá cargar la información crediticia de sus clientes al sistema Creditum para que este disponible para usted y los demás agregados') ?></p>
   <p>Seleccione el archivo con la información a importar a Creditum.net</p>
 
-  <?php include_partial('archivo', array('formulario' => $formulario,'obj' => $obj)) ?>
+  <?php include_partial('archivo', array('formulario' => $formulario)) ?>
 
 </div>

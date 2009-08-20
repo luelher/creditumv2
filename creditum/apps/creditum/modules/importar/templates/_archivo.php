@@ -17,7 +17,3 @@
       </ul>
     </form>
   </div>
-
-  <div id="grid">
-      <?php echo grid_tag($obj); ?>
-  </div>

@@ -7,6 +7,7 @@
  */
 ?>
 
-<?php include_partial('archivo', array('formulario' => $formulario, 'obj' => $obj)) ?>
-<?php echo count($data).' Lineas Cargadas del archivo '.$archivo->getOriginalName(); ?>
+<?php include_partial('archivo', array('formulario' => $formulario)) ?>
+<p><?php echo $data.' Lineas Cargadas del archivo '.$archivo->getOriginalName(); ?></p>
+<p><?php echo $convertido.' Lineas Importadas '?></p>
 
