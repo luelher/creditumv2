@@ -2127,7 +2127,11 @@ public static function obtenerDiaMesOAno($fecha,$formato,$dmoa)
     }else return 0;
     
   }
-  
+ 
+  public static function EscribirLog($str)
+  {
+    sfContext::getInstance()->getLogger()->info($str, 'info');
+  }
 
 }
 
