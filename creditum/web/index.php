@@ -3,5 +3,5 @@
 
 require_once(dirname(__FILE__).'/../config/ProjectConfiguration.class.php');
 
-$configuration = ProjectConfiguration::getApplicationConfiguration('creditum', 'dev', false);
+$configuration = ProjectConfiguration::getApplicationConfiguration('creditum', 'prod', false);
 sfContext::createInstance($configuration)->dispatch();
