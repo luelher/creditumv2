@@ -152,6 +152,7 @@ class Experiencia{
 
   public function Hidratar($datos)
   {
+    
     $this->cedula = $datos[0];
     $this->nombre = $datos[1];
     $this->apellido = $datos[2];

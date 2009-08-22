@@ -38,38 +38,19 @@ class Herramientas
   public static function BuscarDatos($sql,&$output)
   {
 
-    // TODO: Hacer que buscar datos pueda abrir la conexion inicial
-    // no funciona si una conexion no fue configurada con anterioridad
-    //echo $sql;
-    $reg = EmpresaPeer::doCount(new Criteria());
-    $con = sfContext::getInstance()->getDatabaseConnection($connection='propel');
+    $con = Propel::getConnection(EmpresaPeer::DATABASE_NAME);
     $stmt = $con->createStatement();
-    $rs = $stmt->executeQuery($sql, ResultSet::FETCHMODE_NUM);
-    $i = pg_num_fields($rs->getResource());
-    $fieldname = array();
-    $result = array();
-    $output = array();
+    $rs = $stmt->executeQuery($sql, ResultSet::FETCHMODE_ASSOC);
 
-    for ($j = 0; $j < $i; $j++)
-    {
-      $fieldname[]  = pg_field_name($rs->getResource(),$j);
-    }
+    $output = array();
 
     while ($rs->next())
     {
-      $a=0;
-      while ($a < $i)
-      {
       $fila = $rs->getRow();
-        $result[$fieldname[$a]] = $fila[$a];
-        $a++;
-      }
-      $output[] = $result;
+      $output[] = $fila;
     }
     if (count($output)>0) return true; else return false;
-    //if (count($rs)>0) return true; else return false;
   }
-
   public static function instr($palabra,$busqueda,$comienzo,$concurrencia)
   {
     $tamano=strlen($palabra);
