@@ -40,11 +40,13 @@ class importarActions extends sfActions
       {
         $this->archivo = $this->formulario->getValue('archivo');
         $this->tipo = $this->formulario->getValue('tipo');
+        $this->cliente = $this->formulario->getValue('cliente');
 
         $archivo = $this->archivo->getTempName();
 
         $importar = new Importar();
         $importar->setArchivo($archivo);
+        $importar->setClienteId($this->cliente);
 
         $importar->Cargar();
         
