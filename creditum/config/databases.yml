@@ -12,6 +12,8 @@ all:
     param:
       classname: PropelPDO
       dsn: 'mysql:host=localhost;dbname=creditum'
+#      username: geuser
+#      password: ge123456789
       username: root
       password: root
       encoding: utf8

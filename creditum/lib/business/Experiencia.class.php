@@ -87,37 +87,37 @@ class Experiencia{
   // Metodos Sets
   public function setCedula($value)
   {
-    $this->cedula = $value;
+    $this->cedula = trim($value);
   }
 
   public function setNombre($value)
   {
-    $this->nombre = $value;
+    $this->nombre = trim($value);
   }
   
   public function setApellido($value)
   {
-    $this->apellido = $value;
+    $this->apellido = trim($value);
   }
 
   public function setTelefono($value)
   {
-    $this->telefono = $value;
+    $this->telefono = trim($value);
   }
 
   public function setCelular($value)
   {
-    $this->celular = $value;
+    $this->celular = trim($value);
   }
 
   public function setProfesion($value)
   {
-    $this->profesion = $value;
+    $this->profesion = trim($value);
   }
 
   public function setFactura($value)
   {
-    $this->factura = $value;
+    $this->factura = trim($value);
   }
 
   public function setFechaCompra($value)
@@ -152,7 +152,7 @@ class Experiencia{
 
   public function Hidratar($datos)
   {
-    
+
     $this->cedula = $datos[0];
     $this->nombre = $datos[1];
     $this->apellido = $datos[2];
@@ -160,11 +160,13 @@ class Experiencia{
     $this->celular = $datos[4];
     $this->profesion = $datos[5];
     $this->factura = $datos[6];
-    $this->fecha_compra = date('Y-m-d',strtotime($datos[7]));
-    $this->monto = $datos[8];
-    $this->pago_mes = $datos[9];
+    $date = split('[/.-]',$datos[7]);
+    $this->fecha_compra = date('Y-m-d',strtotime($date[2].'-'.$date[1].'-'.$date[0]));
+    $this->monto = floatval(str_replace(',','',$datos[8]));
+    $this->pago_mes = floatval(str_replace(',','',$datos[9]));
     $this->numero_giros = $datos[10];
-    $this->fecha_cancelacion = date('Y-m-d',strtotime($datos[11]));
+    $date = split('[/.-]',$datos[11]);
+    $this->fecha_cancelacion = date('Y-m-d',strtotime($date[2].'-'.$date[1].'-'.$date[0]));
     $this->experiencia = $datos[12];
     
   }

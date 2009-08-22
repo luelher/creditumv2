@@ -11,6 +11,7 @@ class Importar {
   private $metadata=array();
   private $experiencias=array();
   private $cliente_id=0;
+  private $error='';
 
   function Importar($archivo='') {
     $this->archivo = $archivo;
@@ -55,9 +56,9 @@ class Importar {
     $c = new Criteria();
     $c->add(ClientesPeer::ID_CLIENTE,$this->cliente_id);
     $cliente = ClientesPeer::doSelectOne($c);
-    
-    H::PrintR($cliente);print '---';
 
+    $Conta=0;
+    
 		if ($cliente)
 		{
     
@@ -78,7 +79,7 @@ class Importar {
               
               $creditos = CreditosPeer::doSelectOne($c);
               
-              H::PrintR($creditos);
+              //H::PrintR($creditos);
 
 //
 //						try
@@ -86,61 +87,51 @@ class Importar {
 //						catch
 //						{Ultima_Fecha = DateTime.Now;}
               if($creditos){
-                $Ultima_Fecha = new DateTime($creditos->getFechaOperacion());
+                $Ultima_Fecha = strtotime($creditos->getFechaOperacion());
               }else{
-                $Ultima_Fecha = new DateTime();
+                $Ultima_Fecha = strtotime(date('Y-m-d'));
               }
 
-              
-//						
-//						TimeSpan Actual = DateTime.Now.Subtract(Ultima_Fecha);
-              $now = new DateTime();
-              var_dump($Ultima_Fecha);
-              $Actual = $now->diff($Ultima_Fecha); 
-              
-              print_r($Actual) ;exit();
-              
-//
-  						if ($Actual.days >= 0)
+              $now = strtotime(date('Y-m-d'));
+              $Actual = $now - $Ultima_Fecha; 
+              $Actual = $Actual / (60 * 60 * 24); 
+
+  						if (true)
   						{
-
-//							// Se analizan todos los registros obtenidos
-//							Registro Reg;
-//							int ID_CLIENTE_PERSONA;
-
-//							for (int i=0;i<Datos.Tables["CREDITOS"].Rows.Count;i++)
-//							{
 
                 if(count($this->experiencias)>0){
                   foreach($this->experiencias as $Reg){
 
     								if (substr($Reg->getCedula(), 0,1)=="J")
     								{
-    									$ID_CLIENTE_PERSONA = VerificarJuridica(Reg,$this->cliente_id);
+    									$ID_CLIENTE_PERSONA = $this->VerificarJuridica($Reg,$this->cliente_id);
     								}
     								else
     								{
-    									$ID_CLIENTE_PERSONA = VerificarNatural(Reg,$this->cliente_id);
+    									$ID_CLIENTE_PERSONA = $this->VerificarNatural($Reg,$this->cliente_id);
     								}
+                    
     								if ($ID_CLIENTE_PERSONA!=-1)
     								{
-    									if (!RevisarRegistro($Reg,$ID_CLIENTE_PERSONA))
+    									if (!$this->RevisarRegistro($Reg,$ID_CLIENTE_PERSONA))
     									{$Conta++;}
     								}
 							    }
             	  }
-  							ActualizarCliente(count($this->experiencias) - Conta,$this->cliente_id);
+  							$this->ActualizarCliente(count($this->experiencias) - $Conta,$this->cliente_id);
   							return $Conta;
       				}
       				else 
       				{
-        				H::EscribirLog("El cliente " + $this->cliente_id + " ya fue procesado para este mes. " + date('d/m/Y'));
+        				H::EscribirLog("El cliente ".$this->cliente_id." ya fue procesado para este mes. ".date('d/m/Y'));
+                $this->error = "El cliente ".$this->cliente_id." ya fue procesado para este mes. ".date('d/m/Y');
       	  			return -1;
       		  	}
         
     }else{
 			// El Cliente no existe, no se procesan los datos
-			H::EscribirLog("Error al procesar el codigo " + Codigo.ToString() + " a las " + date('d/m/Y'));
+			H::EscribirLog("Error al procesar el codigo ".$this->cliente_id." a las ".date('d/m/Y'));
+      $this->error = "Error al procesar el codigo ".$this->cliente_id." a las ".date('d/m/Y');
 			return -1;
 		}
 
@@ -190,13 +181,15 @@ class Importar {
   private function VerificarNatural($R,$codcli)
   {
     $c = new Criteria();
-    $c->add(PersonasNaturalesPeer::RIF,$R->getCedula());
+    $c->add(PersonasNaturalesPeer::CEDULA,$R->getCedula());
     $persona = PersonasNaturalesPeer::doSelectOne($c);
     
     if($persona){
+      $c = new Criteria();
       $c->add(ClientesPersonasPeer::ID_PERSONA,$R->getCedula());
       $c->add(ClientesPersonasPeer::ID_CLIENTE,$codcli);
       $clientespersonas = ClientesPersonasPeer::doSelectOne($c);
+            
       if($clientespersonas) return $clientespersonas->getIdClientePersona();
       else{
         $clientes_personas = new ClientesPersonas();
@@ -234,8 +227,10 @@ class Importar {
       $c = new Criteria();
       $c->add(ClientesConfPeer::ID_CLIENTE,$Cliente);
       $clientesconf = ClientesConfPeer::doSelectOne($c);
+      
       if($clientesconf){
         $clientesconf->getSuma($clientesconf->getSuma() + $Cantidad);
+        
         $clientesconf->save();
         
         $sql = "SELECT clientes.NOMBRE AS cliente, casas_comerciales.NOMBRE AS casacomercial ".
@@ -249,8 +244,10 @@ class Importar {
         $NombreCliente = str_pad($NombreCliente, 36,' ',STR_PAD_RIGHT);
         
         H::EscribirLog(Cantidad."		".Cliente."		".NombreCliente."	".date('d/m/Y'));
+        $this->error = Cantidad."		".Cliente."		".NombreCliente."	".date('d/m/Y');
       }else{
         H::EscribirLog(Cantidad."		".Cliente."		"."No esta registrada como un cliente. ".str_pad('',36," ",STR_PAD_RIGHT)."	".date('d/m/Y'));
+        $this->error = Cantidad."		".Cliente."		"."No esta registrada como un cliente. ".str_pad('',36," ",STR_PAD_RIGHT)."	".date('d/m/Y');
       }
       return true;
     }catch(Exception $ex){
@@ -267,18 +264,19 @@ class Importar {
       $c->add(CreditosPeer::FECHA_COMPRA,$R->getFechaCompra());
       $creditos = CreditosPeer::doSelectOne($c);
       
-    	if ($R.getFechaCancelacion()==date('d/m/Y',0)) $Estado=0;
+    	if ($R->getFechaCancelacion()==date('Y-m-d',strtotime('2001-01-01')) || date('Y',strtotime($R->getFechaCancelacion())) < 2002 ) $Estado=0;
   	  else $Estado=1;
       
       if($creditos){
   
         $creditos->setMonto($R->getMonto());
         $creditos->setPagoMes($R->getPagoMes());
+        $creditos->setFechaCompra($R->getFechaCompra());
         $creditos->setNumGiros($R->getNumeroGiros());
         $creditos->setEstado($Estado);
         if($Estado==0){
           // Existe pero NO esta cancelado
-          $creditos->setFechaOperacion(date(Y-m-d));
+          $creditos->setFechaOperacion(date('Y-m-d'));
         }else{
           // Existe y esta cancelado
           $creditos->setFechaOperacion($R->getFechaCancelacion());
@@ -287,6 +285,7 @@ class Importar {
         if($R->getExperiencia()>$creditos->getExperiencia()){
           $creditos->setExperiencia($R->getExperiencia());
         }
+        
         $creditos->save();
       }else{
         
@@ -300,12 +299,13 @@ class Importar {
         $creditos->setNumGiros($R->getNumeroGiros());
         if($Estado==0){
           // Existe pero NO esta cancelado
-          $creditos->setFechaOperacion(date(Y-m-d));
+          $creditos->setFechaOperacion(date('Y-m-d'));
         }else{
           // Existe y esta cancelado
           $creditos->setFechaOperacion($R->getFechaCancelacion());
         }
         $creditos->setExperiencia($R->getExperiencia());
+        
         $creditos->save();
       }
       return true;
@@ -372,6 +372,10 @@ class Importar {
     return $this->cliente_id;
   }
     
+  public function getError()
+  {
+    return $this->error;
+  }
 
 }
 ?>

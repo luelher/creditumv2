@@ -54,7 +54,8 @@ class importarActions extends sfActions
         
         $this->convertido = $importar->Convertir();
 
-        $importar->Procesar();
+        $this->result = $importar->Procesar();
+        $this->error = $importar->getError();
         
         
 
