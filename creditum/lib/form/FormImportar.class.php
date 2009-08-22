@@ -3,8 +3,8 @@
 class FormImportar extends sfForm {
 
     protected $tipos = array('Generica de Creditum');
-    
-    protected $clientes = array(44 => 'LA RANA CA. PRINCIPAL');
+
+    protected $clientes = array(44 => 'LA RANA CA. PRINCIPAL', 173 => 'Agencia Royal 33 C.A.', 236 => 'Comercial San Jose', 249 => 'Josanca 19', 250 => 'Josanca 21', 4 => 'Josanca Acarigua' );
 
     public function configure(){
       $this->setWidgets(array(
