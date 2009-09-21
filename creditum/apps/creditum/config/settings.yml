@@ -1,7 +1,8 @@
 prod:
   .settings:
+    error_reporting:  <?php echo (E_PARSE | E_COMPILE_ERROR | E_ERROR | E_CORE_ERROR | E_USER_ERROR)."\n" ?>
     no_script_name:         off
-    logging_enabled:        off
+    logging_enabled:        on
 
 dev:
   .settings:
@@ -20,15 +21,6 @@ test:
     etag:                   off
 
 all:
-  .settings:
-    # Form security secret (CSRF protection)
-    csrf_secret:       false     # Unique secret to enable CSRF protection or false to disable
-
-    # Output escaping settings
-    escaping_strategy:      false            # Determines how variables are made available to templates. Accepted values: on, off.
-    escaping_method:        ESC_SPECIALCHARS # Function or helper used for escaping. Accepted values: ESC_RAW, ESC_ENTITIES, ESC_JS, ESC_JS_NO_ENTITIES, and ESC_SPECIALCHARS.
-
-all:
 #  .actions:
 #    error_404_module:       default   # To be called when a 404 error is raised
 #    error_404_action:       error404  # Or when the requested URL doesn't match any route
@@ -43,6 +35,14 @@ all:
 #    module_disabled_action: disabled  # A module disabled in the module.yml
 #
   .settings:
+
+    # Form security secret (CSRF protection)
+    csrf_secret:       false     # Unique secret to enable CSRF protection or false to disable
+
+    # Output escaping settings
+    escaping_strategy:      false            # Determines how variables are made available to templates. Accepted values: on, off.
+    escaping_method:        ESC_SPECIALCHARS # Function or helper used for escaping. Accepted values: ESC_RAW, ESC_ENTITIES, ESC_JS, ESC_JS_NO_ENTITIES, and ESC_SPECIALCHARS.
+
 #    # Optional features. Deactivating unused features boots performance a bit.
 #    use_database:           on        # Enable database manager. Set to off if you don't use a database.
 #    i18n:                   off       # Enable interface translation. Set to off if your application should not be translated.
@@ -87,7 +87,7 @@ all:
 #    max_forwards:           5
 #
 #    # Logging
-#    logging_enabled:        on
+    logging_enabled:        on
 #
 #    # i18n
     default_culture:        es_VE        # Default user culture

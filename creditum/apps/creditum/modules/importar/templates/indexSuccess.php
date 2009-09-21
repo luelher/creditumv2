@@ -9,3 +9,4 @@
   <?php include_partial('archivo', array('formulario' => $formulario)) ?>
 
 </div>
+
