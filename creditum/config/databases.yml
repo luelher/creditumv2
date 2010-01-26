@@ -14,6 +14,7 @@ all:
       dsn: 'mysql:host=localhost;dbname=creditum'
       username: geuser
       password: ge123456789
-      encoding: utf8
+      encoding:     latin1
+      charset:      latin1
       persistent: true
       pooling: true
