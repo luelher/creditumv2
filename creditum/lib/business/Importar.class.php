@@ -100,6 +100,8 @@ class Importar {
   						{
 
                 if(count($this->experiencias)>0){
+                  $limit_mem='2048M';
+                  ini_set("memory_limit",$limit_mem);
                   foreach($this->experiencias as $Reg){
 
     								if (substr($Reg->getCedula(), 0,1)=="J")
@@ -223,11 +225,14 @@ class Importar {
 
   private function ActualizarCliente($Cantidad, $Cliente)
   {
+    $log = array();
     try{
       $c = new Criteria();
       $c->add(ClientesConfPeer::ID_CLIENTE,$Cliente);
       $clientesconf = ClientesConfPeer::doSelectOne($c);
-      
+
+      $log['id_cliente'] = $Cliente;
+
       if($clientesconf){
         $clientesconf->getSuma($clientesconf->getSuma() + $Cantidad);
         
@@ -242,13 +247,20 @@ class Importar {
         }else $NombreCliente='Cliente Desconocido - Casa Comercial Desconocida';
         
         $NombreCliente = str_pad($NombreCliente, 36,' ',STR_PAD_RIGHT);
+        $log['cliente'] = $NombreCliente;
+
         
-        H::EscribirLog(Cantidad."		".Cliente."		".NombreCliente."	".date('d/m/Y'));
-        $this->error = Cantidad."		".Cliente."		".NombreCliente."	".date('d/m/Y');
+        H::EscribirLog($Cantidad."		".$Cliente."		".$NombreCliente."	".date('d/m/Y'));
+        $this->error = $Cantidad."		".$Cliente."		".$NombreCliente."	".date('d/m/Y');
+        $log['cantidad'] = $Cantidad;
+        $log['fecha'] = date('d/m/Y');
       }else{
-        H::EscribirLog(Cantidad."		".Cliente."		"."No esta registrada como un cliente. ".str_pad('',36," ",STR_PAD_RIGHT)."	".date('d/m/Y'));
-        $this->error = Cantidad."		".Cliente."		"."No esta registrada como un cliente. ".str_pad('',36," ",STR_PAD_RIGHT)."	".date('d/m/Y');
+        H::EscribirLog($Cantidad."		".$Cliente."		"."No esta registrada como un cliente. ".str_pad('',36," ",STR_PAD_RIGHT)."	".date('d/m/Y'));
+        $this->error = $Cantidad."		".$Cliente."		"."No esta registrada como un cliente. ".str_pad('',36," ",STR_PAD_RIGHT)."	".date('d/m/Y');
+        $log['cantidad'] = $Cantidad;
+        $log['fecha'] = date('d/m/Y');      
       }
+      $this->addImportarLog($log);
       return true;
     }catch(Exception $ex){
       return false;
@@ -375,6 +387,37 @@ class Importar {
   public function getError()
   {
     return $this->error;
+  }
+
+  public function addImportarLog($arr)
+  {
+    $filename = 'import_log.yml';
+
+    if (is_writable($filename)) {
+
+        if (!$handle = fopen($filename, 'a')) {
+             echo "Cannot open file ($filename)";
+             exit;
+        }
+
+        if (fwrite($handle, '  '.date('dmyHi').":\n") === FALSE) {
+            echo "Cannot write to file ($filename)";
+            exit;
+        }
+
+        foreach ($arr as $key => $info){
+          if (fwrite($handle, '    '.$key.': '.$info."\n") === FALSE) {
+              echo "Cannot write to file ($filename)";
+              exit;
+          }          
+        }
+
+        fclose($handle);
+
+    } else {
+        echo "The file $filename is not writable";
+    }
+
   }
 
 }
