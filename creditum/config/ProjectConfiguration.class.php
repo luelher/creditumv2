@@ -9,6 +9,8 @@ class ProjectConfiguration extends sfProjectConfiguration
 {
   public function setup()
   {
+    ini_set('upload_max_filesize', '10M');
+
     // for compatibility / remove and enable only the plugins you want
     $this->enableAllPluginsExcept(array('sfDoctrinePlugin', 'sfCompat10Plugin'));
   }

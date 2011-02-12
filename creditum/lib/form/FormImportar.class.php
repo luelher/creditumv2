@@ -21,7 +21,7 @@ class FormImportar extends sfForm {
         'tipo' => new sfValidatorString(array('required'=>'true')),
         'cliente' => new sfValidatorString(array('required'=>'true')),
       ));
-
+echo ini_get('upload_max_filesize');
 
     }
 }

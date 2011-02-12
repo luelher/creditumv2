@@ -160,12 +160,12 @@ class Experiencia{
     $this->celular = $datos[4];
     $this->profesion = $datos[5];
     $this->factura = $datos[6];
-    $date = split('[/.-]',$datos[7]);
+    $date = explode('/',$datos[7]);
     $this->fecha_compra = date('Y-m-d',strtotime($date[2].'-'.$date[1].'-'.$date[0]));
     $this->monto = floatval(str_replace(',','',$datos[8]));
     $this->pago_mes = floatval(str_replace(',','',$datos[9]));
     $this->numero_giros = $datos[10];
-    $date = split('[/.-]',$datos[11]);
+    $date = explode('/',$datos[11]);
     $this->fecha_cancelacion = date('Y-m-d',strtotime($date[2].'-'.$date[1].'-'.$date[0]));
     $this->experiencia = $datos[12];
     

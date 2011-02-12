@@ -242,7 +242,7 @@ class Importar {
   						" FROM clientes LEFT JOIN casas_comerciales ON (clientes.ID_CASA_COMERCIAL = casas_comerciales.ID_CASA_COMERCIAL) ".
   						" WHERE clientes.ID_Cliente=".Cliente;
         
-        if(H::BuscarDatos($sql,&$reg)){
+        if(H::BuscarDatos($sql,$reg)){
           $NombreCliente=$reg[0]['clientes'].' - '.$reg[0]['casacomercial'];
         }else $NombreCliente='Cliente Desconocido - Casa Comercial Desconocida';
         
@@ -351,7 +351,7 @@ class Importar {
     if(count($this->metadata)>0){
       foreach($this->metadata as $meta){
         $trama = $meta;
-        $tokents = split("\t", $trama);
+        $tokents = explode("\t", $trama);
         //print_r($tokents);
         if(count($tokents)>4){
           $exp = new Experiencia();
