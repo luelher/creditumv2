@@ -1,8 +1,6 @@
 <?php
 
-# FROZEN_SF_LIB_DIR: /var/www/production/sfweb/www/cache/symfony-for-release/1.2.4/lib
-
-require_once dirname(__FILE__).'/../lib/symfony/autoload/sfCoreAutoload.class.php';
+require_once dirname(__FILE__).'/../lib/vendor/symfony/lib/autoload/sfCoreAutoload.class.php';
 sfCoreAutoload::register();
 
 class ProjectConfiguration extends sfProjectConfiguration
@@ -12,6 +10,6 @@ class ProjectConfiguration extends sfProjectConfiguration
     ini_set('upload_max_filesize', '10M');
 
     // for compatibility / remove and enable only the plugins you want
-    $this->enableAllPluginsExcept(array('sfDoctrinePlugin', 'sfCompat10Plugin'));
+    $this->enableAllPluginsExcept(array('sfDoctrinePlugin'));
   }
 }
