@@ -1,8 +1,8 @@
 <?php
 
-class FormImportar extends sfForm {
+class FormImportar extends BaseForm {
 
-    protected $tipos = array('Generica de Creditum');
+    protected $tipos = array('Generica de Creditum', 'Creditum Cliente (.cre)');
 
     protected $clientes = array(44 => 'LA RANA CA. PRINCIPAL', 173 => 'Agencia Royal 33 C.A.', 236 => 'Comercial San Jose', 249 => 'Josanca 19', 250 => 'Josanca 21', 4 => 'Josanca Acarigua' );
 
@@ -21,7 +21,6 @@ class FormImportar extends sfForm {
         'tipo' => new sfValidatorString(array('required'=>'true')),
         'cliente' => new sfValidatorString(array('required'=>'true')),
       ));
-echo ini_get('upload_max_filesize');
 
     }
 }

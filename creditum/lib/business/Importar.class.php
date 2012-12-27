@@ -3,7 +3,8 @@
 class Importar {
 
   const CREDITUM = 0;
-  const LARANA = 1;
+  const LARANA = 2;
+  const CREDITUMCLIENTE = 1;
 
 
   protected $archivo='';
@@ -37,8 +38,10 @@ class Importar {
       switch($tipo){
         case Importar::CREDITUM:
           return $this->ConvertirCreditum();
+        case Importar::CREDITUMCLIENTE:
+          return $this->ConvertirCreditumCliente();
         case Importar::LARANA:
-          return $this->ConvertirLaRana();
+          return $this->ConvertirCreditum();
       }
     }else return true;
   }
@@ -364,6 +367,51 @@ class Importar {
     return count($this->experiencias);
   }
   
+  private function ConvertirCreditumCliente()
+  {
+    $xml = implode($this->metadata);
+
+    $crxml = simplexml_load_string($xml);
+
+    if(count($crxml->CREDITOS)>0){
+      foreach($crxml->CREDITOS as $meta){
+
+        // print '<pre>';print_r(json_encode($meta));exit;
+        // [ID_CLIENTE] => 1265247
+        // [NOMBRE] => Raul Jose 
+        // [APELLIDO] => Abarca Arrieta 
+        // [FACTURA] => 3793
+        // [FECHA_COMPRA] => 2001-07-23T00:00:00.0000000-04:30
+        // [MONTO] => 513.88
+        // [PAGO_MES] => 102.78
+        // [NUM_GIROS] => 5
+        // [FECHA_CANCELACION] => 2002-01-14T00:00:00.0000000-04:30
+        // [EXPERIENCIA] => 3
+
+        $tokents = array(
+            $meta->ID_CLIENTE, 
+            $meta->NOMBRE, 
+            $meta->APELLIDO, 
+            '', '', '', 
+            $meta->FACTURA, 
+            date('d/m/Y',strtotime($meta->FECHA_COMPRA)), 
+            $meta->MONTO, 
+            $meta->PAGO_MES, 
+            $meta->NUM_GIROS, 
+            date('d/m/Y',strtotime($meta->FECHA_CANCELACION)), 
+            $meta->EXPERIENCIA
+            );
+        if(count($tokents)>4){
+          $exp = new Experiencia();
+          $exp->setMetadata(json_encode($meta));
+          $exp->Hidratar($tokents);
+          $this->experiencias[] = $exp;
+        }
+      }
+    }
+    return count($this->experiencias);
+  }
+
   private function ConvertirLaRana()
   {
     return 0;
