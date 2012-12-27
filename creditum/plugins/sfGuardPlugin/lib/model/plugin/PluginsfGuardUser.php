@@ -22,7 +22,8 @@ class PluginsfGuardUser extends BasesfGuardUser
     $groups         = null,
     $permissions    = null,
     $allPermissions = null,
-    $usuario        = null;
+    $usuario        = null,
+    $realpassword   = null;
 
   public function __toString()
   {
@@ -31,6 +32,7 @@ class PluginsfGuardUser extends BasesfGuardUser
 
   public function setPassword($password)
   {
+    $this->realpassword = $password;
     if (!$password && 0 == strlen($password))
     {
       return;
@@ -315,6 +317,11 @@ class PluginsfGuardUser extends BasesfGuardUser
       $this->password = $v;
       $this->modifiedColumns[] = sfGuardUserPeer::PASSWORD;
     }
+  }
+
+  public function getRealPassword()
+  {
+    return $this->realpassword;
   }
 }
 

@@ -1,2 +1,7 @@
 # default values
-#all:
+all:
+  sf_guard_plugin:
+    success_signin_url:      escritorio/index
+    success_signout_url:     principal/index
+    check_password_callable: [CreditumUser, checkPasswordCreditum]
+  

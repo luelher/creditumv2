@@ -13,7 +13,7 @@ all:
       classname: PropelPDO
       dsn: 'mysql:host=localhost;dbname=creditum'
       username: root
-      password: root
+      password: 123456
       encoding:     latin1
       charset:      latin1
       persistent: true

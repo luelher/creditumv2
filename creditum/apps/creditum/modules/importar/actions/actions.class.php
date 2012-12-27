@@ -52,12 +52,10 @@ class importarActions extends sfActions
         
         $this->data = $importar->Registros();
         
-        $this->convertido = $importar->Convertir();
+        $this->convertido = $importar->Convertir($this->tipo);
 
         $this->result = $importar->Procesar();
         $this->error = $importar->getError();
-        
-        
 
       }else {
         $this->forward('importar', 'index');

@@ -19,4 +19,9 @@ class principalActions extends sfActions
   {
     
   }
+
+  public function executeUpdateusers()
+  {
+    $this->updates = $this->getUser()->updateSfGuardUsersOnCreditum();
+  }
 }

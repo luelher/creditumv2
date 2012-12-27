@@ -132,7 +132,7 @@ propel:
     _uniques: { INDEX_CI: [CEDULA] }
   usuarios:
     _attributes: { phpName: Usuarios }
-    CEDULA: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
+    CEDULA: { type: INTEGER, size: '11', required: true, defaultValue: '0', primaryKey: true }
     ID_CLIENTE: { type: INTEGER, size: '11', required: true, defaultValue: '0' }
     PWD: { type: VARCHAR, size: '50', required: true, defaultValue: '' }
     NOMBRE: { type: VARCHAR, size: '20', required: true, defaultValue: '' }

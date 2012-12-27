@@ -16,6 +16,9 @@ Description: A wide two-column design suitable for blogs and small websites.
     <?php include_http_metas() ?>
     <?php include_metas() ?>
     <?php include_title() ?>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <?php include_stylesheets() ?>
+    <?php include_javascripts() ?>
 </head>
 <body>
 <!-- start header -->
@@ -58,7 +61,7 @@ Description: A wide two-column design suitable for blogs and small websites.
 </div>
 <!-- end page -->
 <div id="footer">
-  <p id="legal">&copy;2009 Informadora de Crédito en Línea. Todos los Derechos Reservados. | Desarrollado, Diseñado y Mantenido por <a href="http://www.grupoemporium.com.ve/">Grupo Emporium</a></p>
+  <p id="legal">&copy;2013 Informadora de Crédito en Línea. Todos los Derechos Reservados. | Desarrollado, Diseñado y Mantenido por <a href="http://www.grupoemporium.com/">Grupo Emporium</a></p>
   <p id="links"><a href="http://validator.w3.org/check/referer" title="This page validates as XHTML 1.0 Transitional"><abbr title="eXtensible HyperText Markup Language">XHTML</abbr></a> | <a href="http://jigsaw.w3.org/css-validator/check/referer" title="This page validates as CSS"><abbr title="Cascading Style Sheets">CSS</abbr></a></p>
 </div>
 </body>

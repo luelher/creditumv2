@@ -9,5 +9,5 @@
 <?php use_helper('Date') ?>
 <?php $sf_user->setCulture('es_VE') ?>
     <div id="info">
-      <p><?php echo format_datetime(time()) ?>. <b>Bienvenido</b> <?php echo 'Usuario No Autenticado' ?>.</p>
+      <p><?php echo format_datetime(time()) ?>. <b>Bienvenido <?php echo $nomusu ?>. </b> </p>
     </div>
